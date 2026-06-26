@@ -1,0 +1,15 @@
+# Entorno virtual
+.venv/
+
+# Caché de python
+_cache_/
+
+# Variables de entorno
+.env
+
+# Configuración de VSCode
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
