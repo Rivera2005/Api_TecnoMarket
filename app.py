@@ -18,6 +18,11 @@ def inicio():
         }
     )
     
+    
+@app.get("/catalogo")
+def obtener_productos():                                                                                                                                                                                                                                                                         
+    return jsonify(list(catalogo.values()))
+
 @app.get("/catalogo/<id>")
 def obtener_cliente(id):
     
@@ -27,10 +32,21 @@ def obtener_cliente(id):
         return jsonify(producto) 
     
     return jsonify({"Error": "Producto no encontrado"}), 404
+
+
+@app.post("/catalogo")
+def agregar_productos():
+    nuevo_producto = request.get_json()
+    if not nuevo_producto or "nombre" not in nuevo_producto:
+        return jsonify({"Error": "El campo nombre es obligatorio"}), 400
     
-@app.get("/catalogo")
-def obtener_productos():                                                                                                                                                                                                                                                                         
-    return jsonify(list(catalogo.values()))
+    id_producto = max(catalogo.keys(), default=100) + 1
+    if id_producto in catalogo:
+        return jsonify({"Error": "Producto ya existe"}), 400
+    
+    nuevo_producto["id"] = id_producto
+    catalogo[id_producto] = nuevo_producto
+    return jsonify(nuevo_producto), 201
 
 
 if __name__ == "__main__":
