@@ -17,6 +17,11 @@ def inicio():
             "endpoints": ["/catalogo", "/catalogo/<id>"]
         }
     )
+    
+@app.get("/catalogo")
+def obtener_productos():                                                                                                                                                                                                                                                                         
+    return jsonify(list(catalogo.values()))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
