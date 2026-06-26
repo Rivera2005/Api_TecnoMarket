@@ -18,6 +18,16 @@ def inicio():
         }
     )
     
+@app.get("/catalogo/<id>")
+def obtener_cliente(id):
+    
+    producto = catalogo.get(id)
+    
+    if producto:
+        return jsonify(producto) 
+    
+    return jsonify({"Error": "Producto no encontrado"}), 404
+    
 @app.get("/catalogo")
 def obtener_productos():                                                                                                                                                                                                                                                                         
     return jsonify(list(catalogo.values()))
